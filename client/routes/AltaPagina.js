@@ -2,7 +2,6 @@ var React = require('react');
 
 var AltaPagina = React.createClass({
     render: function() {
-        console.log(this.props.params, 'huh');
         var content;
         switch (this.props.params.count) {
             case '0':

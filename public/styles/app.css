@@ -8020,3 +8020,8 @@ button.close {
 .nav a.active {
     font-weight: bold
 }
+
+.container {
+    margin: 0 auto;
+    text-align: center;
+}
