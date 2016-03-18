@@ -3,9 +3,16 @@ var babelify = require('babelify');
 var browserify = require('browserify-middleware');
 var nunjucks = require('nunjucks');
 var config = require('./client/config');
+var mongoose = require('mongoose');
+var users = require('./server/routes/users');
+var bodyParser = require('body-parser');
 
 // initialise express
 var app = express();
+
+var dbName = 'redDataBase';
+var connectionString = 'mongodb://localhost:27017/' + dbName;
+mongoose.connect(connectionString);
 
 // use nunjucks to process view templates in express
 nunjucks.configure('server/templates/views', {
@@ -35,10 +42,17 @@ app.use('/js', browserify('./client/scripts', {
 	here before the catch-all route for index.html below.
 */
 
+//Expose our API
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded());
+
+//Users API
+app.use('/', users);
+
 app.get('*', function(req, res) {
-	// this route will respond to all requests with the contents of your index
-	// template. Doing this allows react-router to render the view in the app.
-    res.render('index.html');
+  // this route will respond to all requests with the contents of your index
+  // template. Doing this allows react-router to render the view in the app.
+  res.render('index.html');
 });
 
 // start the server
