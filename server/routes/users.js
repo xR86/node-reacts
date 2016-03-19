@@ -17,11 +17,11 @@ router.route('/users')
   .post(function (req, res){
     var user = new User(req.body);
 
-    user.save(function (err) {
+    user.save(function (err, user) {
       if(err) {
         return res.send(err);
       }
-      return res.send('Success.');
+      return res.send('Successfuly added user ' + user.id + '.');
     });
   });
 

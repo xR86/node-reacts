@@ -10,8 +10,10 @@ var bodyParser = require('body-parser');
 // initialise express
 var app = express();
 
-var dbName = 'redDataBase';
-var connectionString = 'mongodb://localhost:27017/' + dbName;
+var dbName = 'fiiPractic';
+var dbPort = '27017';
+var dbHost = 'localhost';
+var connectionString = 'mongodb://' + dbHost + ':' + dbPort + '/' + dbName;
 mongoose.connect(connectionString);
 
 // use nunjucks to process view templates in express
