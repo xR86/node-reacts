@@ -1,14 +1,16 @@
-var React = require('react');
+import React from 'react';
+import UserList from '../components/UserList';
 
-var Pagina = React.createClass({
-	render: function() {
-		return (
-			<div>
-			<p>E prima pagina, dar asta oricum era afisata pentru ca e pe IndexRoute. Apropo, asa in general... daca vrei sa folosesti un modul din React sau de oriunde, ai grija sa il si importi in proiect in loc sa te scarpini pe cap vreo 5 min ca iti da undefined.</p>
-			<p> <a href="https://github.com/sergiu-enasoaie/node-reacts" target="_blank">Link de git!</a></p>
+export default class Pagina extends React.Component {
+    constructor(props) {
+    	super(props);
+    }
+    render() {
+        return (
+            <div className="page-container">
+				<h2>This is the home page!</h2>
+				<UserList />
 			</div>
-		);
-	}
-});
-
-module.exports = Pagina;
+        );
+    }
+};

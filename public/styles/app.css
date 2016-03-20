@@ -8013,6 +8013,9 @@ button.close {
     }
 }
 
+
+/*Custom styles*/
+
 .nav {
     margin: 10px 0
 }
@@ -8023,5 +8026,18 @@ button.close {
 
 .container {
     margin: 0 auto;
-    text-align: center;
+}
+
+.user-container {
+    display: inline-block;
+    box-shadow: 0 1px 2px #999;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.user-container button {
+    border: 0;
+    background: #000;
+    color: #fff;
+    padding: 4px 10px;
 }
