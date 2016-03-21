@@ -33,7 +33,7 @@ var App = React.createClass({
                 <Header/>
                 <PageNav/>
                 {this.props.children}
-                <Footer ceva="hasmter"/>
+                <Footer/>
             </div>
         );
     }

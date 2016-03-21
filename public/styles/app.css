@@ -8041,3 +8041,10 @@ button.close {
     color: #fff;
     padding: 4px 10px;
 }
+.footer.red a {
+    color: red;
+}
+
+.footer.green a {
+    color: green;
+}
