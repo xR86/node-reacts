@@ -2,6 +2,7 @@ var passport = require('passport');
 var express = require('express');
 var router = express.Router();
 var users = require('./users');
+var exams = require('./exams');
 
 module.exports = function (app) {
 
@@ -29,6 +30,9 @@ module.exports = function (app) {
 
   //Expose Users API
   router.use('/', users);
+  //Expose Exams API
+  //We need to be logged in for accessing it
+  router.use('/', isAuthenticated, exams);
 
   router.route('*')
     .get(function (req, res) {
@@ -44,5 +48,6 @@ function isAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
   }
-  res.redirect('/');
+  res.status(401);
+  res.send({message: 'Not logged in.'})
 }
