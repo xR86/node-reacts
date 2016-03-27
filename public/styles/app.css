@@ -8041,10 +8041,51 @@ button.close {
     color: #fff;
     padding: 4px 10px;
 }
+
 .footer.red a {
     color: red;
 }
 
 .footer.green a {
     color: green;
+}
+
+.register-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.register-form > h1 {
+    font-size: 18px;
+}
+
+.register-form > form > label {
+    display: block;
+    color: #00aeef;
+    font-size: 10px;
+}
+
+.register-form > form > input {
+    display: block;
+    background-color: #f6f6f6;
+    border-radius: 3px;
+    border: 0;
+}
+
+.register-form > form input[type="submit"] {
+    padding: 5px;
+    border-radius: 3px;
+    background-color: #000;
+    color: #fff;
+    margin-top: 10px;
+    transition: all .3s ease-in;
+}
+
+.register-form > form input[type="submit"]:hover {
+    background-color: #00aeef;
 }

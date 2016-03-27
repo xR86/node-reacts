@@ -5,7 +5,7 @@ var AltaPagina = React.createClass({
         var content;
         switch (this.props.params.count) {
             case '0':
-                content = <img src="images/ba-esti-nebun.png" />;
+                content = <img src='images/ba-esti-nebun.png' />;
                 break;
             case '1':
                 content = 'Nu serios, chiar merge.';
@@ -19,7 +19,7 @@ var AltaPagina = React.createClass({
             default:
                 content = 'Perseverenta e totusi o calitate.'
         }
-        return ( < p > { content } < /p>);
+        return (<p>{ content }</p>);
     }
 });
 

@@ -1,50 +1,44 @@
-var React = require('react'),
-    ReactDom = require('react-dom'),
-    ReactRouter = require('react-router'),
-    Router = ReactRouter.Router,
-    Route = ReactRouter.Route,
-    Link = ReactRouter.Link;
+import React from 'react';
+import ReactDom from 'react-dom';
+import { Router, Route, Link, IndexRoute, hashHistory } from 'react-router';
 
 import Pagina from '../routes/Pagina';
 import AltaPagina from '../routes/AltaPagina';
-import Footer from '../components/Footer';
-import Header from '../components/Header';
+import RegisterPage from '../routes/RegisterPage';
+import LoginPage from '../routes/LoginPage';
 
-var PageNav = React.createClass({
-    getInitialState: function() {
-        return { count: 0 };
-    },
-    handleClick: function(event) {
-        this.setState({ count: ++this.state.count });
-    },
-    render: function() {
-        return (
-            <div className="nav">
-                <Link to = "pagina" > Pagina </Link> | <Link to={`alta-pagina/${this.state.count}`} onClick={this.handleClick}>Alta pagina</Link>
-            </div>
-        );
+let loggedIn = false;
+
+function requireAuth(nextState, replace) {
+    if (!loggedIn) {
+        replace({
+            pathname: '/pagina',
+            state: { nextPathname: nextState.location.pathname }
+        })
     }
-});
+}
 
-var App = React.createClass({
-    render: function() {
+class App extends React.Component {
+    constructor() {
+        super();
+    }
+    render() {
         return (
             <div className="container">
-                <Header/>
-                <PageNav/>
                 {this.props.children}
-                <Footer/>
             </div>
         );
     }
-});
+};
 
-var routes = (
-    <Router history={ReactRouter.hashHistory}>
+let routes = (
+    <Router history={hashHistory}>
     <Route path="/" component={App}>
+        <Route path="login" component={LoginPage} />
+        <Route path="register" component={RegisterPage} />
         <Route path="pagina" component={Pagina} />
-        <Route path="alta-pagina/:count" component={AltaPagina} />*/}
-        <ReactRouter.IndexRoute component={Pagina}/>
+        <Route path="alta-pagina/:count" component={AltaPagina} onEnter={requireAuth} />*/}
+        <IndexRoute component={LoginPage}/>
     </Route>
 </Router>
 );
