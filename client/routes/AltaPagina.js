@@ -1,5 +1,9 @@
 var React = require('react');
 
+import Footer from '../components/Footer';
+import Header from '../components/Header';
+import PageNav from '../components/PageNav';
+
 var AltaPagina = React.createClass({
     render: function() {
         var content;
@@ -19,7 +23,13 @@ var AltaPagina = React.createClass({
             default:
                 content = 'Perseverenta e totusi o calitate.'
         }
-        return (<p>{ content }</p>);
+        return (
+            <div className="page-container">
+            <Header />
+            <PageNav />
+            <p>{ content }</p>
+            <Footer />
+            </div>);
     }
 });
 

@@ -7,21 +7,13 @@ import AltaPagina from '../routes/AltaPagina';
 import RegisterPage from '../routes/RegisterPage';
 import LoginPage from '../routes/LoginPage';
 
-let loggedIn = false;
-
-function requireAuth(nextState, replace) {
-    if (!loggedIn) {
-        replace({
-            pathname: '/pagina',
-            state: { nextPathname: nextState.location.pathname }
-        })
-    }
-}
+import {requireAuth} from '../services/auth';
 
 class App extends React.Component {
     constructor() {
         super();
     }
+
     render() {
         return (
             <div className="container">
@@ -36,7 +28,7 @@ let routes = (
     <Route path="/" component={App}>
         <Route path="login" component={LoginPage} />
         <Route path="register" component={RegisterPage} />
-        <Route path="pagina" component={Pagina} />
+        <Route path="pagina" component={Pagina} onEnter={requireAuth} />
         <Route path="alta-pagina/:count" component={AltaPagina} onEnter={requireAuth} />*/}
         <IndexRoute component={LoginPage}/>
     </Route>
