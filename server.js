@@ -14,7 +14,7 @@ var app = express();
 
 //We speak JSON
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded());
+app.use(bodyParser.urlencoded({extended: true}));
 
 //Configure passport
 require('./server/config/passport')(app);

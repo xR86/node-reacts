@@ -7,7 +7,9 @@ var User = require('../model/userModel');
 module.exports = function (app) {
   //Setup passport
   app.use(session({
-    secret: 'some secret string to protect the session'
+    secret: 'some secret string to protect the session',
+    resave: false,
+    saveUninitialized: true
   }));
   app.use(passport.initialize());
   app.use(passport.session());
