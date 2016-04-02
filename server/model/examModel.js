@@ -21,6 +21,16 @@ var examSchema = new Schema({
   optional: {
     type: Boolean,
     default: false
+  },
+  examDate: {
+    type: Date
+  },
+  minimalGrade: {
+    type: Number,
+    required: true,
+    min: 1,
+    max: 10,
+    default: 5
   }
 });
 

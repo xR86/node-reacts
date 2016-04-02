@@ -36,7 +36,23 @@ var userSchema = new Schema({
   copyingIntention: {
     type: Boolean,
     default: true
-  }
+  },
+  examList: [{
+    grade: {
+      type: Number,
+      min: 1,
+      max: 10,
+      default: null
+    },
+    exam: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Exam'
+    },
+    passed: {
+      type: Boolean,
+      default: false
+    }
+  }]
 });
 
 userSchema.methods.hashPassword = function (password) {

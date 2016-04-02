@@ -10,7 +10,6 @@ module.exports = function (app) {
   router.route('/login')
     .post(passport.authenticate('local-login'),
       function (req, res) {
-        console.log(req);
         res.send({message: 'Logged in'});
       });
 
