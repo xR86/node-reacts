@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var Exam = require('../model/examModel');
 
-router.route('/exams')
+router.route('/')
   .get(function (req, res) {
     //Process query parameters
     var query = {};
@@ -33,7 +33,7 @@ router.route('/exams')
     })
   });
 
-router.route('/exams/:id')
+router.route('/:id')
   .get(function (req, res) {
     Exam.findById(req.params.id, function (err, exam) {
       if (err) {

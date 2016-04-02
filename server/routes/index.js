@@ -29,10 +29,10 @@ module.exports = function (app) {
    });*/
 
   //Expose Users API
-  router.use('/', users);
+  router.use('/users', users);
   //Expose Exams API
   //We need to be logged in for accessing it
-  router.use('/', isAuthenticated, exams);
+  router.use('/exams', isAuthenticated, exams);
 
   router.route('*')
     .get(function (req, res) {

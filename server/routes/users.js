@@ -3,7 +3,7 @@ var router = express.Router();
 var User = require('../model/userModel');
 
 //Operations on the collection of users
-router.route('/users')
+router.route('/')
   //Get all users
   .get(function (req, res) {
     User.find({}, {password: 0}, function (err, users) {
@@ -28,7 +28,7 @@ router.route('/users')
 
 //Operations on a single User
 //query string example: /users/1234 (1234 is an Users's id)
-router.route('/users/:id')
+router.route('/:id')
   //Get a single User
   .get(function (req, res) {
     User.findOne({_id: req.params.id}, function (err, user) {
