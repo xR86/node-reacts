@@ -1,27 +1,27 @@
 import React from 'react';
 import $ from 'jquery';
 import appConfig from '../configs/appConfig';
-import UserListEntry from '../components/UserListEntry';
+import ExamListEntry from '../components/ExamListEntry';
 
-export default class UserList extends React.Component {
+export default class ExamList extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { users: [] };
+        this.state = { exams: [] };
+    }
+    componentDidMount() {
+        this.getUsers();
     }
     componentWillUnmount() {
-        if (this.serverRequest) {
-            this.serverRequest.abort();
-        }
+        this.serverRequest.abort();
     }
     getUsers() {
         this.serverRequest = $.ajax({
             type: 'GET',
-            url: `${appConfig.serverUrl}users`,
+            url: `${appConfig.serverUrl}exams`,
             cache: false,
-            dataType: 'json',
             success: (result) => {
                 this.setState({
-                    users: result
+                    exams: result
                 });
             },
             error: (result) => {
@@ -33,9 +33,9 @@ export default class UserList extends React.Component {
     render() {
         return (
             <div className="dashboard-container">
-                <button onClick={this.getUsers.bind(this)}>SHOW USERS</button>
+                <button onClick={this.getUsers.bind(this)}>Refresh Exams</button>
                 <div className="user-container__list">
-                    {this.state.users.map((item) =>{return <UserListEntry key={item._id} entry={item}/>})}
+                    {this.state.exams.map((item) =>{return <ExamListEntry key={item._id} entry={item}/>})}
                 </div>
             </div>
         );

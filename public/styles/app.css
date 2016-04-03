@@ -8028,14 +8028,15 @@ button.close {
     margin: 0 auto;
 }
 
-.user-container {
+.dashboard-container {
     display: inline-block;
     box-shadow: 0 1px 2px #999;
     padding: 10px;
-    margin: 10px 0;
+    margin: 10px 5px;
+    vertical-align: top;
 }
 
-.user-container button {
+.dashboard-container button {
     border: 0;
     background: #000;
     color: #fff;
@@ -8064,19 +8065,6 @@ button.close {
     font-size: 18px;
 }
 
-.register-form > form > label {
-    display: block;
-    color: #00aeef;
-    font-size: 10px;
-}
-
-.register-form > form > input {
-    display: block;
-    background-color: #f6f6f6;
-    border-radius: 3px;
-    border: 0;
-}
-
 .register-form > form input[type="submit"] {
     padding: 5px;
     border-radius: 3px;
@@ -8084,8 +8072,46 @@ button.close {
     color: #fff;
     margin-top: 10px;
     transition: all .3s ease-in;
+    border: 0;
 }
 
 .register-form > form input[type="submit"]:hover {
     background-color: #00aeef;
+}
+
+.form-field {
+    position: relative;
+}
+
+.form-field > label {
+    display: block;
+    color: #00aeef;
+    font-size: 10px;
+}
+
+.form-field > input {
+    display: block;
+    background-color: #f6f6f6;
+    border-radius: 3px;
+    border: 0;
+}
+
+.form-field > .form-field__error-message {
+    display: none;
+}
+
+.form-field--error > input {
+    border: 1px solid red;
+}
+
+.form-field--error:hover > .form-field__error-message {
+    display: block;
+}
+
+.form-field__error-message {
+    position: absolute;
+    color: red;
+    top: -10px;
+    background: #ddd;
+    padding: 2px;
 }

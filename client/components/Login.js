@@ -1,46 +1,91 @@
 import React from 'react';
+import { hashHistory } from 'react-router'
 import $ from 'jquery';
 
 import { logIn } from '../services/auth';
-import { hashHistory } from 'react-router'
+import * as Validations from '../services/form-validation';
+import FormField from '../components/FormField';
 
 let proceedAfterLogin = () => {
     hashHistory.push('/pagina');
 };
+
 
 export default class Register extends React.Component {
     constructor() {
         super();
         this.state = {
             email: '',
-            password: ''
+            emailErrorObj: {},
+            password: '',
+            passwordErrorObj: {},
+            isSubmitted: false,
+            invalidLogin: false
         };
     }
     updateEmail(e) {
         this.setState({ email: e.target.value });
+        this.validateEmail(e.target.value);
+    }
+    validateEmail(value) {
+        let valueToTest = value ? value : this.state.email;
+
+        let error = Validations.isRequired(valueToTest);
+
+        if (error) {
+            this.setState({ emailErrorObj: { hasErrors: true, errors: error } });
+            return false;
+        }
+
+        error = Validations.isEmail(valueToTest);
+
+        if (error) {
+            this.setState({ emailErrorObj: { hasErrors: true, errors: error } });
+            return false;
+        }
+
+        this.setState({ emailErrorObj: { hasErrors: false } });
+        return true;
     }
     updatePassword(e) {
         this.setState({ password: e.target.value });
+        this.validatePassword(e.target.value);
+    }
+    validatePassword(value) {
+        let valueToTest = value ? value : this.state.password;
+
+        let error = Validations.isRequired(valueToTest);
+
+        if (error) {
+            this.setState({ passwordErrorObj: { hasErrors: true, errors: error } });
+            return false;
+        }
+
+        this.setState({ passwordErrorObj: { hasErrors: false } });
+        return true;
     }
     loginUser(e) {
         e.preventDefault();
 
-        if (!this.state.email || !this.state.password) {
-            throw new Error('email and password are required');
+        this.setState({ isSubmitted: true });
+
+        if (!this.validateEmail() | !this.validatePassword()) {
+            return;
         }
 
-        logIn(this.state.email, this.state.password, proceedAfterLogin);
+        logIn(this.state.email, this.state.password, proceedAfterLogin).fail(() => {
+            this.setState({ invalidLogin: true });
+        });
     }
     render() {
         return (
             <div className="register-form">
                 <h1>Login</h1>
                 <form name="registerForm" onSubmit={this.loginUser.bind(this)}>
-                    <label htmlFor="email">Email</label>
-                    <input name="email" type="text" value={this.state.email} onChange={this.updateEmail.bind(this)}/>
-                    <label htmlFor="password">Password</label>
-                    <input name="password" type="password" value={this.state.password} onChange={this.updatePassword.bind(this)}/>
+                    <FormField fieldName="email" fieldType="text" isSubmitted={this.state.isSubmitted} errors={this.state.emailErrorObj} fieldValue={this.state.email} update={this.updateEmail.bind(this)}/>
+                    <FormField fieldName="password" fieldType="password" isSubmitted={this.state.isSubmitted} errors={this.state.passwordErrorObj} fieldValue={this.state.password} update={this.updatePassword.bind(this)}/>
                     <input type="submit" value="Login"/>
+                    <p>{`${this.state.invalidLogin ? 'Invalid Credentials' : ''}`}</p>
                 </form>
             </div>
         );

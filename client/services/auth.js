@@ -7,7 +7,7 @@ export let logIn = (email, password, cb) => {
         email: email.trim(),
         password: password.trim()
     }
-    $.ajax({
+    return $.ajax({
             type: 'POST',
             url: `${appConfig.serverUrl}login`,
             cache: false,
@@ -19,11 +19,9 @@ export let logIn = (email, password, cb) => {
             if (cb && typeof cb === 'function') {
                 cb();
             }
-        })
-        .fail((resp) => {
-            throw new Error('Ceva crapasi');
         });
 }
+
 export let logOut = (cb) => {
     $.ajax({
             type: 'GET',
