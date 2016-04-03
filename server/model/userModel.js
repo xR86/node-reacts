@@ -52,7 +52,10 @@ var userSchema = new Schema({
       type: Boolean,
       default: false
     }
-  }]
+  }],
+  facebookId: {
+    type: Number
+  }
 });
 
 userSchema.methods.hashPassword = function (password) {
@@ -61,6 +64,9 @@ userSchema.methods.hashPassword = function (password) {
 
 userSchema.methods.checkPassword = function (password) {
   return bcrypt.compareSync(password, this.password);
+}
+userSchema.methods.randomPasswordHashed = function () {
+  return this.hashPassword(Math.random().toString(36).substr(2, 8));
 }
 
 module.exports = mongoose.model('User', userSchema);

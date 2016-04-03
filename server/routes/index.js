@@ -10,8 +10,17 @@ module.exports = function (app) {
   router.route('/login')
     .post(passport.authenticate('local-login'),
       function (req, res) {
-        res.send({message: 'Logged in'});
+        res.send({message: 'Logged in.'});
       });
+
+  router.route('/login/facebook')
+    .get(passport.authenticate('facebook', {scope: ['email']}));
+
+  router.route('/login/facebook/callback')
+    .get(passport.authenticate('facebook', {
+      successRedirect: '/',
+      failureRedirect: '/login'
+    }));
 
   //Handle logout
   router.route('/logout')
@@ -25,8 +34,8 @@ module.exports = function (app) {
    res.json({
    req: req.isAuthenticated()
    });
-   });*/
-
+   });
+*/
   //Expose Users API
   router.use('/users', users);
   //Expose Exams API
