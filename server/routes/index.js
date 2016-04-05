@@ -22,6 +22,11 @@ module.exports = function (app) {
       failureRedirect: '/login'
     }));
 
+  /*router.route('/login/facebook/success')
+    .get(function (req, res) {
+      res.send({message: 'Logged in.', user: req.user});
+    });*/
+
   //Handle logout
   router.route('/logout')
     .get(function (req, res) {
@@ -30,12 +35,14 @@ module.exports = function (app) {
     });
 
   //Test login
-  /*router.get('/logged', function (req, res) {
-   res.json({
-   req: req.isAuthenticated()
-   });
-   });
-*/
+
+  //Expose session ping mechanism
+  router.get('/logged', function (req, res) {
+    res.json({
+      authenticated : req.isAuthenticated(),
+      user: req.user ? req.user : null
+    });
+  });
   //Expose Users API
   router.use('/users', users);
   //Expose Exams API

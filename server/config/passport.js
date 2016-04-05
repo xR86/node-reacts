@@ -23,7 +23,7 @@ module.exports = function (app) {
   });
 
   passport.deserializeUser(function (id, done) {
-    User.findById(id, function (err, user) {
+    User.findById(id, {password: 0}, function (err, user) {
       done(err, user);
     })
   });
@@ -61,7 +61,7 @@ module.exports = function (app) {
     function (accessToken, refreshToken, profile, done) {
       //Search for existing user
       //profile.id = UserModel.facebookId
-      User.findOne({facebookId: profile.id, email: profile.emails[0].value}, function (err, user) {
+      User.findOne({facebookId: profile.id, email: profile.emails[0].value},{password: 0}, function (err, user) {
         if (err) {
           console.log('Find facebook user error:', err);
           return done(null, false, err);
