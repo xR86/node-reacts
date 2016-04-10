@@ -1,13 +1,14 @@
 import React from 'react';
-import { hashHistory } from 'react-router'
+import { browserHistory } from 'react-router'
 import $ from 'jquery';
 
-import { logIn } from '../services/auth';
+import { logIn, logInFacebook } from '../services/auth';
+import appConfig from '../configs/appConfig';
 import * as Validations from '../services/form-validation';
 import FormField from '../components/FormField';
 
 let proceedAfterLogin = () => {
-    hashHistory.push('/pagina');
+    browserHistory.push('/pagina');
 };
 
 
@@ -77,6 +78,9 @@ export default class Register extends React.Component {
             this.setState({ invalidLogin: true });
         });
     }
+    facebookLogin() {
+        logInFacebook();
+    }
     render() {
         return (
             <div className="register-form">
@@ -87,6 +91,7 @@ export default class Register extends React.Component {
                     <input type="submit" value="Login"/>
                     <p>{`${this.state.invalidLogin ? 'Invalid Credentials' : ''}`}</p>
                 </form>
+                <a href={`${appConfig.serverUrl}login/facebook`}>facebook login</a>
             </div>
         );
     }

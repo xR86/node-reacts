@@ -37,6 +37,7 @@ export default class Register extends React.Component {
             lastName: this.state.lastName.trim(),
             password: this.state.password.trim(),
             year: this.state.year.trim(),
+            fillExams: true
         }
 
         let requestObject = $.ajax({

@@ -6,7 +6,7 @@ export default class ExamListEntry extends React.Component {
     }
     render() {
         return (
-            <div className="user-container__user">
+            <div className="dashboard-container__user item--has-action" onClick={this.props.retrieveUsers}>
 				<p>{this.props.entry.courseName} on {this.props.entry.examDate}</p>
 			</div>
         );

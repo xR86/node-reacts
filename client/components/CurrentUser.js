@@ -1,15 +1,15 @@
 import React from 'react';
-import { hashHistory } from 'react-router'
+import { browserHistory } from 'react-router'
 import { getCurrentUser, logOut } from '../services/auth';
 
 let proceedAfterLogout = () => {
-    hashHistory.push('/login');
+    browserHistory.push('/login');
 };
 
 export default class CurrentUser extends React.Component {
     constructor() {
         super();
-        this.state = { userEmail: getCurrentUser() };
+        this.state = { user: getCurrentUser() };
     }
     logout() {
         logOut(proceedAfterLogout);
@@ -17,7 +17,7 @@ export default class CurrentUser extends React.Component {
     render() {
         return (
             <div className="current-user">
-                <p>Logged in as {this.state.userEmail}</p>
+                <p>Logged in as {this.state.user.email}</p>
                 <button onClick={this.logout.bind(this)}>Logout</button>
             </div>);
     }
