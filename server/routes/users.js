@@ -11,6 +11,7 @@ router.route('/')
 
     //Process query params
     var query = {};
+    var page = {};
     var queryString = req.query;
     if (queryString) {
       //year query param
@@ -30,9 +31,17 @@ router.route('/')
         var exams = queryString.exams.split(',');
         query.examList = {'$elemMatch': {'exam': {'$in': exams}}};
       }
+
+
+      //Process pagination request
+      if (queryString.page && queryString.size && queryString.page > 1 && queryString.size > 1) {
+        page.skip = (queryString.page - 1 ) * queryString.size;
+        page.limit = parseInt(queryString.size);
+      }
+
     }
 
-    User.find(query, {password: 0, examList: 0}, function (err, users) {
+    User.find(query, {password: 0, examList: 0}, page, function (err, users) {
       if (err) {
         return res.send(err);
       }
