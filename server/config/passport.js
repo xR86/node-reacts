@@ -3,6 +3,7 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local');
 var FacebookStrategy = require('passport-facebook');
 var User = require('../model/userModel');
+var log = require('./logger');
 
 //Optained from Facebook
 var FACEBOOK_APP_ID = 1710153845869897;
@@ -38,6 +39,7 @@ module.exports = function (app) {
       //Find the user by email
       User.findOne({'email': email}, function (err, user) {
         if (err) {
+          log.error(err);
           return done(null, false, err);
         }
         if (!user) {
@@ -46,6 +48,7 @@ module.exports = function (app) {
         if (!user.checkPassword(password)) {
           return done(null, false, {message: 'Wrong password'});
         }
+        log.info('User %s %s has logged in.', user.firstName, user.lastName);
         return done(null, user);
       })
     }
@@ -63,7 +66,7 @@ module.exports = function (app) {
       //profile.id = UserModel.facebookId
       User.findOne({facebookId: profile.id, email: profile.emails[0].value},{password: 0}, function (err, user) {
         if (err) {
-          console.log('Find facebook user error:', err);
+          log.error('Find facebook user error:', err);
           return done(null, false, err);
         }
 
@@ -80,7 +83,7 @@ module.exports = function (app) {
 
           newUser.save(function (err, user) {
             if (err) {
-              console.log('Saving facebook user error:', err);
+              log.error('Saving facebook user error:', err);
               return done(null, false, err);
             }
             return done(null, user);

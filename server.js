@@ -4,6 +4,7 @@ var browserify = require('browserify-middleware');
 var nunjucks = require('nunjucks');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
+var log = require('./server/config/logger');
 
 var index = require('./server/routes/index');
 var dbConfig = require('./server/config/db');
@@ -22,9 +23,9 @@ require('./server/config/passport')(app);
 //DB connection
 mongoose.connect(dbConfig.url, function (err) {
   if (err) {
-    console.error(err);
+    log.error(err);
   }
-  console.log('Connected to DB.')
+  log.info('Connected to DB.');
 });
 
 // use nunjucks to process view templates in express
@@ -59,5 +60,5 @@ require('./server/routes/index')(app);
 
 // start the server
 var server = app.listen(process.env.PORT || 3000, function () {
-  console.log('\nServer ready on port %d\n', server.address().port);
+  log.info('\nServer ready on port %d\n', server.address().port);
 });

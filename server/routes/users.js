@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var User = require('../model/userModel');
 var Exam = require('../model/examModel');
+var log = require('../config/logger');
 
 //Operations on the collection of users
 router.route('/')
@@ -46,6 +47,7 @@ router.route('/')
 
     user.save(function (err, user) {
       if (err) {
+        log.error(err);
         return res.send(err);
       }
       if (!req.body.fillExams) {
