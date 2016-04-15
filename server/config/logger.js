@@ -1,8 +1,17 @@
 var winston = require('winston');
 var RotaryFile = require('winston-daily-rotate-file');
+var fs = require('fs');
 
 var logDir = '././log/';
 var logName = 'server.log';
+
+if(!fs.existsSync(logDir)){
+  fs.mkdirSync(logDir, 0766, function(err){
+    if(err){
+      console.error(err);
+    }
+  });
+}
 
 var logger = new winston.Logger({
   // Configure the outpur type of the logging
