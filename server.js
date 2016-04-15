@@ -68,9 +68,7 @@ var io = require('socket.io')(server);
 io.on('connection', function (socket) {
 
   socket.on('register', function (msg) {
-    if(!sockets[msg.user])  {
-      sockets[msg.user] = socket;
-    }
+  sockets[msg.user] = socket;
   });
 
   socket.on('send-message', function (msg) {
