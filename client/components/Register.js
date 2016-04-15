@@ -64,17 +64,27 @@ export default class Register extends React.Component {
             <div className="register-form">
 	        	<h1>Register</h1>
 	            <form name="registerForm" onSubmit={this.registerUser.bind(this)}>
-	        		<label htmlFor="email">Email</label>
-	        		<input name="email" value={this.state.email} onChange={this.updateEmail.bind(this)}/>
-	        		<label htmlFor="firstName">First name</label>
-	        		<input name="firstName" value={this.state.firstName} onChange={this.updateFirstName.bind(this)}/>
-	        		<label htmlFor="lastName">Last name</label>
-	        		<input name="lastName" value={this.state.lastName} onChange={this.updateLastName.bind(this)}/>
-	        		<label htmlFor="password">Password</label>
-	        		<input name="password" value={this.state.password} onChange={this.updatePassword.bind(this)}/>
-	        		<label htmlFor="year">Year</label>
-	        		<input name="year" value={this.state.year} onChange={this.updateYear.bind(this)}/>
-	        		<input type="submit" value="Register!"/>
+                    <div className="form-field">
+	        		    <label htmlFor="email">Email</label>
+	        		    <input name="email" value={this.state.email} onChange={this.updateEmail.bind(this)}/>
+	        		</div>
+                    <div className="form-field">
+                        <label htmlFor="firstName">First name</label>
+	        		    <input name="firstName" value={this.state.firstName} onChange={this.updateFirstName.bind(this)}/>
+	        		</div>
+                    <div className="form-field">
+                        <label htmlFor="lastName">Last name</label>
+	        		    <input name="lastName" value={this.state.lastName} onChange={this.updateLastName.bind(this)}/>
+	        		</div>
+                    <div className="form-field">
+                        <label htmlFor="password">Password</label>
+	        		    <input name="password" value={this.state.password} onChange={this.updatePassword.bind(this)}/>
+	        		</div>
+                    <div className="form-field">
+                        <label htmlFor="year">Year</label>
+	        		    <input name="year" value={this.state.year} onChange={this.updateYear.bind(this)}/>
+	        		</div>
+                    <input type="submit" value="Register!"/>
 	        	</form>
         	</div>
         );

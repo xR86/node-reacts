@@ -1,5 +1,5 @@
 const appConfig = {
-	serverUrl: 'http://localhost:3000/'
+	serverUrl: 'http://192.168.159.201:3000/'
 };
 
 export default appConfig;

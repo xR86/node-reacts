@@ -85,7 +85,7 @@ export default class Register extends React.Component {
         return (
             <div className="register-form">
                 <h1>Login</h1>
-                <form name="registerForm" onSubmit={this.loginUser.bind(this)}>
+                <form name="loginForm" onSubmit={this.loginUser.bind(this)}>
                     <FormField fieldName="email" fieldType="text" isSubmitted={this.state.isSubmitted} errors={this.state.emailErrorObj} fieldValue={this.state.email} update={this.updateEmail.bind(this)}/>
                     <FormField fieldName="password" fieldType="password" isSubmitted={this.state.isSubmitted} errors={this.state.passwordErrorObj} fieldValue={this.state.password} update={this.updatePassword.bind(this)}/>
                     <input type="submit" value="Login"/>
