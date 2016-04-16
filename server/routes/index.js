@@ -3,6 +3,7 @@ var express = require('express');
 var router = express.Router();
 var users = require('./users');
 var exams = require('./exams');
+var chat = require('../config/chat');
 
 module.exports = function (app) {
 
@@ -33,6 +34,7 @@ module.exports = function (app) {
   //Handle logout
   router.route('/logout')
     .get(function (req, res) {
+      chat.deleteSocket(req.user.email);
       req.logout();
       res.end();
     });

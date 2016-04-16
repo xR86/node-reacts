@@ -63,24 +63,6 @@ var server = app.listen(process.env.PORT || 3000, function () {
   log.info('\nServer ready on port %d\n', server.address().port);
 });
 
-var sockets = {};
-var io = require('socket.io')(server);
-io.on('connection', function (socket) {
+//Attach chat component
+require('./server/config/chat')(server);
 
-  socket.on('register', function (msg) {
-  sockets[msg.user] = socket;
-  });
-
-  socket.on('send-message', function (msg) {
-    if(sockets[msg.receiver])  {
-      
-      console.log('message', msg);
-      sockets[msg.receiver].emit(msg.receiver, msg);
-
-    } else {
-      //push it in a queue
-      //c
-      console.log('No messabe');
-    }
-  });
-});

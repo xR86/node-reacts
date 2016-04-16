@@ -27,7 +27,7 @@ export default class ChatForm extends React.Component {
             return;
         }
         console.log('se trimite');
-        socket.emit('send-message', { sender: this.props.currentUser.email, receiver: this.props.currentUser.email, msg: this.state.message });
+        socket.emit('send-message', { sender: this.props.currentUser.email, receiver: '2@2.com', msg: this.state.message });
         this.setState({ message: '' });
     }
     updateMessage(e) {
