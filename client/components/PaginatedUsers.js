@@ -19,7 +19,7 @@ export default class PaginatedUsers extends React.Component {
         }
     }
     componentDidMount() {
-        this.getUsers(1);
+        this.getUsers();
     }
     getUsers() {
         this.setState({
@@ -35,7 +35,7 @@ export default class PaginatedUsers extends React.Component {
                     this.setState({ isInWaiting: false });
                     return;
                 }
-                console.log('aici raspuns', result);
+
                 this.setState({
                     users: this.state.users.concat(result),
                     currentPage: this.state.currentPage + 1,
@@ -52,7 +52,8 @@ export default class PaginatedUsers extends React.Component {
 
     }
     requestNewPage(event) {
-        if (event.target.scrollHeight - event.target.scrollTop == event.target.offsetHeight) {
+
+        if (Math.floor(event.target.scrollHeight - event.target.scrollTop) == event.target.offsetHeight) {
             this.getUsers();
         }
     }

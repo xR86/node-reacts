@@ -10,36 +10,8 @@ router.route('/')
   .get(function (req, res) {
 
     //Process query params
-    var query = {};
-    var page = {};
-    var queryString = req.query;
-    if (queryString) {
-      //year query param
-      if (queryString.year) {
-        query.year = queryString.year;
-      }
-      //share query param
-      if (queryString.share) {
-        query.sharingIntention = queryString.share;
-      }
-      //copy query param
-      if (queryString.copy) {
-        query.copyingIntention = queryString.copy;
-      }
-      //exams query param. this is a comma separated list
-      if (queryString.exams) {
-        var exams = queryString.exams.split(',');
-        query.examList = {'$elemMatch': {'exam': {'$in': exams}}};
-      }
-
-
-      //Process pagination request
-      if (queryString.page && queryString.size && queryString.page > 0 && queryString.size > 1) {
-        page.skip = (queryString.page - 1 ) * queryString.size;
-        page.limit = parseInt(queryString.size);
-      }
-
-    }
+    var query = processQueryString(req.query);
+    var page = processPageQueryString(req.query);
 
     User.find(query, {password: 0, examList: 0}, page, function (err, users) {
       if (err) {
@@ -145,5 +117,50 @@ var updateExamList = function (user, res) {
 
   });
 };
+
+var processQueryString = function (queryString) {
+  var query = {};
+
+  if (!queryString) {
+    return query;
+  }
+
+  //year query param
+  if (queryString.year) {
+    query.year = queryString.year;
+  }
+  //share query param
+  if (queryString.share) {
+    query.sharingIntention = queryString.share;
+  }
+  //copy query param
+  if (queryString.copy) {
+    query.copyingIntention = queryString.copy;
+  }
+  //exams query param. this is a comma separated list
+  if (queryString.exams) {
+    var exams = queryString.exams.split(',');
+    query.examList = {'$elemMatch': {'exam': {'$in': exams}}};
+  }
+  return query;
+};
+
+var processPageQueryString = function (queryString) {
+  var page = {};
+
+  if (!queryString) {
+    return query;
+  }
+
+  //Process pagination request
+  if (queryString.page && queryString.size && queryString.page > 0 && queryString.size > 0) {
+    page.skip = (queryString.page - 1 ) * queryString.size;
+    page.limit = parseInt(queryString.size);
+  }
+  return page;
+};
+
+router.processQueryString = processQueryString;
+router.processPageQueryString = processPageQueryString;
 
 module.exports = router;
