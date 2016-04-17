@@ -7,13 +7,11 @@ import ExamListEntry from '../components/ExamListEntry';
 import UserListEntry from '../components/UserListEntry';
 import { getAllExams, getUsersFromExam } from '../services/exam-service';
 import ChatForm from '../components/ChatForm';
-import { getCurrentUser} from '../services/auth';
 
 export default class ExamList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            user: getCurrentUser(),
             exams: [],
             usersForExam: [],
             isInWaiting: false
@@ -49,14 +47,11 @@ export default class ExamList extends React.Component {
             throw new Error('Ceva crapasi');
         });
     }
-    openChat() {
-        console.log('hamster');
-    }
     render() {
         let userList = this.state.usersForExam && this.state.usersForExam.length ?
             <div className="dashboard-container__list">
                         <h3 className="dashboard-container__subtitle">Who you can cheat from</h3>
-                        {this.state.usersForExam.map((item) =>{return <UserListEntry key={item._id} entry={item}/>})}
+                        {this.state.usersForExam.map((item) =>{return <div key={item._id} className="item--has-action" onClick={this.openChat.bind(this, item)}><UserListEntry entry={item}/></div>})}
                     </div> :
             ''
         return (
@@ -70,10 +65,9 @@ export default class ExamList extends React.Component {
                 </div>
                 <div className="dashboard-container__list">
                     <h3 className="dashboard-container__subtitle">Your exams! Don't mess them up...</h3>
-                    {this.state.exams.map((item) =>{return <div key={item._id} onClick={this.openChat.bind(this)}><ExamListEntry retrieveUsers={this.getExamApplicants.bind(this, item._id)} entry={item}/></div>})}
+                    {this.state.exams.map((item) =>{return <ExamListEntry key={item._id} retrieveUsers={this.getExamApplicants.bind(this, item._id)} entry={item}/>})}
                 </div>
                 {userList}
-                <ChatForm currentUser={this.state.user} recipientName="2@2.com"/>
             </div>
         );
     }

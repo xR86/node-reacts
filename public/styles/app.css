@@ -8061,6 +8061,11 @@ button.close {
     margin: 5px 0 10px;
 }
 
+.dashboard-container__users {
+    height: 200px;
+    overflow-y: scroll;
+}
+
 .dashboard-container .spinner {
     display: none;
 }
@@ -8140,6 +8145,69 @@ button.close {
     top: -10px;
     background: #ddd;
     padding: 2px;
+}
+
+.chat-form-container {
+}
+.chat-form-container__chats {
+    display: flex;
+    justify-content: flex-end;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 260px;
+}
+.chat-form-container__users {
+    position: absolute;
+    right:0;
+    bottom:0;
+    width: 250px;
+}
+.chat-form {
+    display: inline-block;
+    border: 1px solid #ccc;
+    background: #efefef;
+    margin:0 5px;
+}
+
+.chat-form__header {
+    background-color: #29a329;
+    padding: 5px;
+    position: relative;
+}
+
+.chat-form__close {
+    position: absolute;
+    color: #fff;
+    right: 5px;
+}
+
+.chat-form__header > h3 {
+    font-size: 15px;
+    color: #fff;
+    margin: 0;
+}
+
+.message-list {
+    overflow-y: scroll;
+    height: 200px;
+    width: 100%;
+    box-shadow: 0 1px 2px #bbb;
+    padding: 5px;
+}
+
+.message-list__msg--self {
+    color: #aaa;
+    text-align: right;
+}
+
+.user-list {
+    overflow-y: scroll;
+    height: 400px;
+}
+
+.user-list--expanded {
+    height: 400px;
 }
 
 

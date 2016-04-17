@@ -1,33 +1,33 @@
 import React from 'react';
-import io from 'socket.io-client';
 
-let socket = io();
-console.log('socket se intampla aici', socket);
+import { getCurrentUser } from '../services/auth';
+
 export default class ChatForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = { messageList: [], message: '' };
 
-        socket.emit('register', { user: this.props.currentUser.email });
-        socket.on(this.props.currentUser.email, this.receiveMessage.bind(this));
-
-        console.log(socket);
-    }
-    initChat(data) {
-        console.log(data);
+        this.props.socket.on(this.props.currentUser.email, this.receiveMessage.bind(this));
     }
     receiveMessage(data) {
-        console.log(this.state.messageList, 'esti o vaca');
+        if (data.sender !== this.props.recipientName) {
+            return;
+        }
         data.timeStamp = new Date().getTime();
         this.setState({ messageList: this.state.messageList.concat([data]) });
-        console.log(this.state.messageList);
     }
     submitMessage() {
         if (!this.state.message) {
             return;
         }
-        console.log('se trimite');
-        socket.emit('send-message', { sender: this.props.currentUser.email, receiver: '2@2.com', msg: this.state.message });
+        console.log('se trimite', );
+        this.props.socket.emit('send-message', { sender: this.props.currentUser.email, receiver: this.props.recipientName, msg: this.state.message });
+        let data = {
+            timeStamp: new Date().getTime(),
+            msg: this.state.message,
+            self: true
+        }
+        this.setState({ messageList: this.state.messageList.concat([data]) });
         this.setState({ message: '' });
     }
     updateMessage(e) {
@@ -36,10 +36,16 @@ export default class ChatForm extends React.Component {
     render() {
         return (
             <div className="chat-form">
-                <h3>{this.props.recipientName}</h3>
-               {this.state.messageList.map((item) =>{return <p key={item.timeStamp}>{item.msg}</p>})}
+                <div className="chat-form__header">
+                    <h3 className="item--is-inline">{this.props.recipientName}</h3>
+                    <span onClick={this.props.closeChat.bind(this, this.props.recipientName)} className="chat-form__close item--has-action">X</span>
+                </div>
+                <div className="message-list">
+                    <p>{this.props.offlineMessages}</p>
+                    {this.state.messageList.map((item) =>{return <p key={item.timeStamp} className={`message-list__msg ${item.self ? 'message-list__msg--self' : ''}`}>{item.msg}</p>})}
+                </div>
                <input onChange={this.updateMessage.bind(this)} value={this.state.message} type="text"/>
-               <button onClick={this.submitMessage.bind(this)}>trimite</button>
+               <button onClick={this.submitMessage.bind(this)}>Send</button>
             </div>
         );
     }

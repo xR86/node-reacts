@@ -34,7 +34,7 @@ router.route('/')
 
 
       //Process pagination request
-      if (queryString.page && queryString.size && queryString.page > 1 && queryString.size > 1) {
+      if (queryString.page && queryString.size && queryString.page > 0 && queryString.size > 1) {
         page.skip = (queryString.page - 1 ) * queryString.size;
         page.limit = parseInt(queryString.size);
       }
