@@ -31,7 +31,7 @@
   },
   "scripts": {
     "start": "node server.js",
-    "test": "echo \"no tests yet\" && exit 0"
+    "test": "mocha -R spec ./test/server/usersRouteTest.js"
   },
   "devDependencies": {
     "grunt": "^1.0.1",
