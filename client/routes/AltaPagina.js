@@ -9,7 +9,7 @@ var AltaPagina = React.createClass({
         var content;
         switch (this.props.params.count) {
             case '0':
-                content = <img src='images/ba-esti-nebun.png' />;
+                content = <img src={'../images/ba-esti-nebun.png'} alt="Celentano"/>;
                 break;
             case '1':
                 content = 'Nu serios, chiar merge.';

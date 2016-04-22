@@ -10,6 +10,9 @@ import ChatForm from '../components/ChatForm';
 let findInUsers = (userEmail, userList) => {
     let length = userList.length;
     for (let i = 0; i < length; i++) {
+        //console.log(userList[i].email + " si " + getCurrentUser().email);
+        //console.log(this.state.user.email);
+        //  && userList[i].email != this.state.user.email -- useful ?
         if (userList[i].email === userEmail) {
             return i;
         }
@@ -57,11 +60,11 @@ export default class ChatContainer extends React.Component {
 
     }
     receiveMessages(data) {
-        let index = findInUsers(data.sender, this.state.chatRecipients);
+        let index = findInUsers(data.sender, this.state.chatRecipients).bind(this);
         if (index !== -1) {
             return;
         }
-        let user = this.state.users[findInUsers(data.sender, this.state.users)];
+        let user = this.state.users[findInUsers(data.sender, this.state.users).bind(this)];
         this.setState({ chatRecipients: this.state.chatRecipients.concat([user]) });
 
         this.state.offlineMessages[data.sender] = data.msg;
@@ -71,7 +74,7 @@ export default class ChatContainer extends React.Component {
         this.setState({ chatRecipients: this.state.chatRecipients.concat([user]) });
     }
     closeChat(userEmail) {
-        let index = findInUsers(userEmail, this.state.chatRecipients);
+        let index = findInUsers(userEmail, this.state.chatRecipients).bind(this);
         if (index === -1) {
             return;
         }

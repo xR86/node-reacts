@@ -18,7 +18,7 @@ export default class CurrentUser extends React.Component {
         return (
             <div className="current-user">
                 <p>Logged in as {this.state.user.email}</p>
-                <button onClick={this.logout.bind(this)}>Logout</button>
+                <button onClick={this.logout.bind(this)} className="btn btn-default">Logout</button>
             </div>);
     }
 }

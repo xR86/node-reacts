@@ -1,0 +1,18 @@
+
+::-webkit-scrollbar {
+    background-color: rgba(0, 0, 0, 0.3);
+    /* color: #00BCD4; */
+    /* height: 10%; */
+}
+::-webkit-scrollbar-thumb {
+    background-color: #BCD7B0;
+}
+
+.chat-form .chat-form__input{
+	width: 70%;
+	display: inline-block;
+}
+.chat-form .chat-form__btn{
+	width: 30%;
+	display: inline-block;
+}
