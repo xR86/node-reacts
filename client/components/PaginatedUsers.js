@@ -3,6 +3,13 @@ import $ from 'jquery';
 import appConfig from '../configs/appConfig';
 import UserListEntry from '../components/UserListEntry';
 
+var iconWrapperStyle = {
+    width: '2em',
+    display: 'inline-block',
+    right: '14px',
+    top: 0
+}
+
 export default class PaginatedUsers extends React.Component {
     constructor(props) {
         super(props);
@@ -61,7 +68,10 @@ export default class PaginatedUsers extends React.Component {
         return (
             <div className={`dashboard-container ${this.state.isInWaiting ? 'dashboard-container--in-waiting' : ''}`}>
                 <div className="dashboard-container__header">
-                   <h3 className="dashboard-container__subtitle item--is-inline">Users</h3>
+                   <h3 className="dashboard-container__subtitle item--is-inline">Users &nbsp;&nbsp;</h3>
+                   <div className="img-responsive" style={iconWrapperStyle}>
+                        <img className="img-responsive" src={'../high-school-icons/png/hands.png'} alt="user icon"/>
+                    </div>
                     <div className="spinner item--is-inline">
                         <div className="double-bounce1"></div>
                         <div className="double-bounce2"></div>

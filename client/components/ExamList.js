@@ -8,6 +8,13 @@ import UserListEntry from '../components/UserListEntry';
 import { getAllExams, getUsersFromExam } from '../services/exam-service';
 import ChatForm from '../components/ChatForm';
 
+var iconWrapperStyle = {
+    width: '2em',
+    display: 'inline-block',
+    right: '14px',
+    top: 0
+}
+
 export default class ExamList extends React.Component {
     constructor(props) {
         super(props);
@@ -58,6 +65,9 @@ export default class ExamList extends React.Component {
             <div className={`dashboard-container ${this.state.isInWaiting ? 'dashboard-container--in-waiting' : ''}`}>
                 <div className="dashboard-container__header">
                     <button className="item--is-inline" onClick={this.getExams.bind(this)}>Refresh Exams</button>
+                    <div className="img-responsive" style={iconWrapperStyle}>
+                        <img className="img-responsive" src={'../high-school-icons/png/bell.png'} alt="user icon"/>
+                    </div>
                     <div className="spinner item--is-inline">
                         <div className="double-bounce1"></div>
                         <div className="double-bounce2"></div>
